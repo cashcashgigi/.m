@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Apple of Fortune Hack</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* Arrière-plan noir */
+            color: #fff; /* Texte blanc pour contraste */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .intro {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: url('https://telegra.ph/file/469b5a602b8a585b5dc3e.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: #fff;
+        }
+
+        @media (max-width: 600px) {
+            .intro {
+                background-size: contain; /* Ajuste la taille de l'image */
+                background-position: center; /* Centre l'image */
+            }
+        }
+
+        .start-button {
+            position: absolute;
+            bottom: 20px; /* Positionne le bouton en bas */
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50; /* Vert */
+            color: #fff; /* Texte blanc */
+            transition: background-color 0.3s;
+            text-align: center; /* Centre le texte */
+        }
+
+        .start-button:hover {
+            background-color: #45a049; /* Vert foncé au survol */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            background-color: #222; /* Fond des sections */
+        }
+
+        #loginSection, #activationSection, #adminSection, #changeActivationSection {
+            background-color: rgba(34, 34, 34, 0.9); /* Fond légèrement transparent */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        #loginSection h2, #activationSection h2, #adminSection h2, #changeActivationSection h2 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        #loginSection label, #activationSection label, #adminSection label, #changeActivationSection label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        #loginSection input, #activationSection input, #adminSection input, #changeActivationSection input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 5px; /* Réduit l'espace entre le champ et le message d'erreur */
+            border: none;
+            border-radius: 5px;
+            background-color: #333; /* Fond des champs de texte */
+            color: #fff; /* Texte blanc */
+            font-size: 1em;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 5px;
+            display: none; /* Caché par défaut */
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 colonnes */
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .cell {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.6); /* Blanc transparent */
+            border: 1px solid #666;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 40px;
+            font-size: 1.2em;
+            color: #333; /* Couleur du texte */
+            transition: background-color 0.3s, color 0.3s;}
+
+.cell.apple {
+    background-color: rgba(255, 255, 255, 0.6); /* Même blanc transparent */
+}
+
+.cell.bomb {
+    background-color: rgba(255, 255, 255, 0.6); /* Même blanc transparent */
+}
+
+.cell.revealed {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Bleu foncé */
+    color: #fff; /* Texte blanc */
+    transition: background-color 0.3s;
+    margin-top: 10px; /* Ajoute un espace entre le champ de saisie et le bouton */
+}
+
+.button:hover {
+    background-color: #0056b3; /* Bleu plus foncé au survol */
+}
+
+#loading {
+    display: none;
+    font-size: 1.2em;
+}
+
+#gameStatus {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    display: none; /* Caché par défaut */
+    transition: opacity 0.5s ease-in-out;
+}
+</style>
+</head>
+<body>
+
+<!-- Page d'accueil -->
+<div class="intro">
+<button id="startButton" class="start-button">Commencer</button>
+</div>
+
+<!-- Page de connexion -->
+<section id="loginSection" class="hidden">
+<h2>Connexion</h2>
+<label for="userId">Identifiant :</label>
+<input type="text" id="userId" placeholder="Entrez votre identifiant">
+<span id="userIdError" class="error-message">Veuillez entrer un identifiant.</span>
+<button id="submitId" class="button">Soumettre</button>
+</section>
+
+<!-- Page d'activation -->
+<section id="activationSection" class="hidden">
+<h2>Activation</h2>
+<label for="activationKey">Clé d'activation :</label>
+<input type="text" id="activationKey" placeholder="Entrez la clé d'activation">
+<span id="activationError" class="error-message">Clé d'activation invalide.</span>
+<button id="activateButton" class="button">Activer</button>
+<button id="telegramButton" class="button">Contactez-nous sur Telegram</button>
+<p id="activationMessage" class="hidden">Activation réussie !</p>
+<button id="accessButton" class="button hidden" disabled>Accédez au jeu</button> <!-- Désactivé par défaut -->
+<button id="adminButton" class="button">Administration</button> <!-- Bouton d'administration -->
+</section>
+
+<!-- Page d'administration -->
+<section id="adminSection" class="hidden">
+<h2>Administration</h2>
+<label for="adminCode">Code d'accès :</label>
+<input type="text" id="adminCode" placeholder="Entrez le code d'accès">
+<span id="adminError" class="error-message">Code d'accès invalide.</span>
+<button id="submitAdminCode" class="button">Soumettre</button>
+<button id="backToActivationButton" class="button">Retour</button> <!-- Bouton retour vers l'activation -->
+</section>
+
+<!-- Page pour changer le code d'activation -->
+<section id="changeActivationSection" class="hidden">
+<h2>Changer le code d'activation</h2>
+<label for="newActivationKey">Nouveau code d'activation :</label>
+<input type="text" id="newActivationKey" placeholder="Entrez le nouveau code d'activation">
+<button id="changeActivationButton" class="button">Changer le code</button>
+<span id="changeMessage" class="hidden">Code d'activation changé avec succès !</span>
+<button id="backToAdminButton" class="button">Retour</button> <!-- Bouton retour vers l'administration -->
+</section>
+
+<!-- Page du jeu -->
+<section id="gameSection" class="hidden">
+<h1>Apple of Fortune</h1><p>Révélez les cases sans toucher les bombes pour atteindre le haut !</p>
+<div class="grid" id="grid"></div>
+<button id="nextButton" class="button">Next</button>
+<div id="loading">Chargement...</div>
+<div id="gameStatus">Cliquez sur "Next" pour commencer !</div>
+<button id="backToActivationFromGameButton" class="button">Retour</button> <!-- Bouton retour vers l'activation depuis le jeu -->
+</section>
+
+<script>
+const gridRows = 10;
+const gridCols = 5;
+const gridSize = gridRows * gridCols;
+const bombCount = 5;
+let gameOver = false;
+let activationCode = localStorage.getItem('activationCode')  'Geek23'; // Récupérer le code d'activation depuis localStorage ou utiliser la valeur par défaut
+const adminAccessCode = '09876'; // Code d'accès administrateur
+
+const grid = document.getElementById('grid');
+const loadingDiv = document.getElementById('loading');
+const gameStatus = document.getElementById('gameStatus');
+let cells = [];
+
+function createGrid() {
+    grid.innerHTML = ''; // Réinitialiser la grille
+
+    const indices = Array.from({length: gridSize}, (_, i) => i);
+    indices.sort(() => Math.random() - 0.5); // Mélange les indices
+
+    const bombIndices = indices.slice(0, bombCount);
+    const appleIndices = indices.slice(bombCount);
+
+    for (let i = 0; i < gridSize; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.dataset.index = i;
+
+        if (bombIndices.includes(i)) {
+            cell.dataset.type = 'bomb';
+        } else {
+            cell.dataset.type = 'apple';
+        }
+
+        cell.addEventListener('click', function () {
+            if (gameOver  this.classList.contains('revealed')) return;
+            if (this.dataset.type === 'apple') {
+                this.classList.add('apple', 'revealed');
+                this.textContent = '🍎';
+                checkWinCondition();
+            } else if (this.dataset.type === 'bomb') {
+                this.classList.add('bomb', 'revealed');
+                this.textContent = '💣';
+                gameOver = true;
+                endGame('Vous avez touché une bombe !');
+            }
+        });
+
+        cells.push(cell);
+        grid.appendChild(cell);
+    }
+}
+
+function checkWinCondition() {
+    const revealedCount = cells.filter(cell => cell.classList.contains('revealed')).length;
+    if (revealedCount >= gridSize - bombCount) {
+        gameOver = true;
+        endGame('Félicitations, vous avez gagné !');
+    }
+}
+
+function endGame(message) {
+    loadingDiv.style.display = 'none';
+    gameStatus.textContent = message;
+    document.getElementById('nextButton').style.display = 'none';
+    cells.forEach(cell => {
+        if (cell.dataset.type === 'bomb') {
+            cell.classList.add('bomb', 'revealed');
+            cell.textContent = '💣';
+        } else if (cell.dataset.type === 'apple') {
+            cell.classList.add('apple', 'revealed');
+            cell.textContent = '🍎';
+        }
+        cell.style.pointerEvents = 'none';
+    });
+}
+
+function revealGrid() {
+    loadingDiv.style.display = 'block';
+    setTimeout(() => {
+        cells.forEach(cell => {
+            if (cell.dataset.type === 'bomb') {
+                cell.classList.add('bomb', 'revealed');
+                cell.textContent = '💣';
+            } else {
+                cell.classList.add('apple', 'revealed');
+                cell.textContent = '🍎';
+            }
+            cell.style.pointerEvents = 'none';
+        });
+        loadingDiv.style.display = 'none';
+        gameStatus.textContent = '';
+    }, 10000); // Temps de chargement en millisecondes (10 secondes ici)
+}
+
+function showNotification(message) {
+    const notification = document.createElement('div');notification.className = 'notification';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        notification.style.display = 'block';
+        notification.style.opacity = 1;
+
+        // Animation de sortie
+        setTimeout(() => {
+            notification.style.opacity = 0;
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 500); // Durée de l'animation de sortie
+        }, 3000); // Durée d'affichage
+    }
+
+    document.getElementById('nextButton').addEventListener('click', function () {
+        if (!gameOver) {
+            revealGrid();
+        }
+        gameOver = false; // Réinitialiser l'état de jeu
+        cells = []; // Réinitialiser les cellules
+        createGrid(); // Créer une nouvelle grille
+    });
+
+    document.getElementById('startButton').addEventListener('click', function () {
+        document.querySelector('.intro').classList.add('hidden');
+        document.getElementById('loginSection').classList.remove('hidden');
+    });
+
+    document.getElementById('submitId').addEventListener('click', function () {
+        const userId = document.getElementById('userId').value;
+        if (userId.trim() === '') {
+            document.getElementById('userIdError').style.display = 'block';
+            return;
+        }
+        document.getElementById('userIdError').style.display = 'none';
+        document.getElementById('loginSection').classList.add('hidden');
+        document.getElementById('activationSection').classList.remove('hidden');
+    });
+
+    document.getElementById('activateButton').addEventListener('click', function () {
+        const activationKey = document.getElementById('activationKey').value;
+        if (activationKey !== activationCode) {
+            document.getElementById('activationError').style.display = 'block';
+            return;
+        }
+        document.getElementById('activationError').style.display = 'none';
+        document.getElementById('activationMessage').classList.remove('hidden');
+        document.getElementById('accessButton').classList.remove('hidden');
+
+        // Ajoutez ces lignes pour masquer la section d'activation et afficher la section du jeu
+        document.getElementById('activationSection').classList.add('hidden'); // Masque la section d'activation
+        document.getElementById('gameSection').classList.remove('hidden'); // Affiche la section du jeu
+        createGrid(); // Crée la grille pour le jeu
+    });
+
+    document.getElementById('accessButton').addEventListener('click', function () {
+        document.getElementById('activationSection').classList.add('hidden');
+        document.getElementById('gameSection').classList.remove('hidden');
+        createGrid(); // Créer la grille au démarrage du jeu
+    });
+
+    document.getElementById('adminButton').addEventListener('click', function () {
+        document.getElementById('activationSection').classList.add('hidden');
+        document.getElementById('adminSection').classList.remove('hidden');
+    });
+
+    document.getElementById('submitAdminCode').addEventListener('click', function () {
+        const adminCode = document.getElementById('adminCode').value;
+        if (adminCode !== adminAccessCode) {
+            document.getElementById('adminError').style.display = 'block';
+            return;
+        }
+        document.getElementById('adminError').style.display = 'none';
+        document.getElementById('adminSection').classList.add('hidden');
+        document.getElementById('changeActivationSection').classList.remove('hidden');
+    });
+
+    document.getElementById('changeActivationButton').addEventListener('click', function () {
+        const newActivationKey = document.getElementById('newActivationKey').value;
+        if (newActivationKey.trim() === '') {
+            showNotification('Veuillez entrer un nouveau code d\'activation.');
+            return;
+        }
+        activationCode = newActivationKey;
+        localStorage.setItem('activationCode', activationCode);document.getElementById('changeMessage').classList.remove('hidden');
+    });
+
+    document.getElementById('backToActivationButton').addEventListener('click', function () {
+        document.getElementById('adminSection').classList.add('hidden');
+        document.getElementById('activationSection').classList.remove('hidden');
+    });
+
+    document.getElementById('backToAdminButton').addEventListener('click', function () {
+        document.getElementById('changeActivationSection').classList.add('hidden');
+        document.getElementById('adminSection').classList.remove('hidden');
+    });
+
+        document.getElementById('backToActivationFromGameButton').addEventListener('click', function () {
+        document.getElementById('gameSection').classList.add('hidden');
+        document.getElementById('activationSection').classList.remove('hidden');
+    });
+
+    document.getElementById('backToActivationButton').addEventListener('click', function () {
+        document.getElementById('activationSection').classList.remove('hidden');
+        document.getElementById('gameSection').classList.add('hidden');
+    });
+
+    document.getElementById('telegramButton').addEventListener('click', function () {
+        window.location.href = 'https://t.me/votre_canal'; // Remplacez par le lien de votre canal Telegram
+    });
+
+    // Gestion du bouton d'administration
+    document.getElementById('adminButton').addEventListener('click', function () {
+        document.getElementById('activationSection').classList.add('hidden');
+        document.getElementById('adminSection').classList.remove('hidden');
+    });
+
+    // Soumission du code d'accès pour l'administration
+    document.getElementById('submitAdminCode').addEventListener('click', function () {
+        const adminCode = document.getElementById('adminCode').value;
+        if (adminCode === adminAccessCode) {
+            document.getElementById('adminError').style.display = 'none'; // Masquer le message d'erreur
+            showNotification('Code accepté ! Vous pouvez maintenant changer le code d\'activation.');
+            document.getElementById('adminSection').classList.add('hidden');
+            document.getElementById('changeActivationSection').classList.remove('hidden'); // Afficher la section pour changer le code d'activation
+        } else {
+            document.getElementById('adminError').style.display = 'inline'; // Afficher le message d'erreur
+        }
+    });
+
+    // Changement du code d'activation
+    document.getElementById('changeActivationButton').addEventListener('click', function () {
+        const newActivationKey = document.getElementById('newActivationKey').value;
+        if (newActivationKey.trim() !== '') {
+            activationCode = newActivationKey; // Changer le code d'activation
+            localStorage.setItem('activationCode', activationCode);
+            document.getElementById('changeMessage').classList.remove('hidden');
+            showNotification('Le code d\'activation a été changé avec succès !');
+        } else {
+            showNotification('Veuillez entrer un nouveau code d\'activation.');
+        }
+    });
+
+    document.getElementById('backToActivationButton').addEventListener('click', function () {
+        document.getElementById('adminSection').classList.add('hidden');
+        document.getElementById('activationSection').classList.remove('hidden');
+    });
+
+    document.getElementById('backToAdminButton').addEventListener('click', function () {
+        document.getElementById('changeActivationSection').classList.add('hidden');
+        document.getElementById('adminSection').classList.remove('hidden');
+    });
+
+    document.getElementById('backToActivationFromGameButton').addEventListener('click', function () {
+        document.getElementById('gameSection').classList.add('hidden');
+        document.getElementById('activationSection').classList.remove('hidden');
+    });
+
+    document.getElementById('backToActivationButton').addEventListener('click', function () {
+        document.getElementById('activationSection').classList.remove('hidden');document.getElementById('gameSection').classList.add('hidden');
+    });
+</script>
+
+</body>
+</html>
