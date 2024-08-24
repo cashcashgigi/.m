@@ -124,220 +124,223 @@
             line-height: 40px;
             font-size: 1.2em;
             color: #333; /* Couleur du texte */
-            transition: background-color 0.3s, color 0.3s;}
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-.cell.apple {
-    background-color: rgba(255, 255, 255, 0.6); /* Même blanc transparent */
-}
+        .cell.apple {
+            background-color: rgba(255, 255, 255, 0.6); /* Même blanc transparent */
+        }
 
-.cell.bomb {
-    background-color: rgba(255, 255, 255, 0.6); /* Même blanc transparent */
-}
+        .cell.bomb {
+            background-color: rgba(255, 255, 255, 0.6); /* Même blanc transparent */
+        }
 
-.cell.revealed {
-    pointer-events: none;
-    opacity: 0.6;
-}
+        .cell.revealed {
+            pointer-events: none;
+            opacity: 0.6;
+        }
 
-.button {
-    display: block;
-    width: 100%;
-    padding: 10px 20px;
-    font-size: 1.2em;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff; /* Bleu foncé */
-    color: #fff; /* Texte blanc */
-    transition: background-color 0.3s;
-    margin-top: 10px; /* Ajoute un espace entre le champ de saisie et le bouton */
-}
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff; /* Bleu foncé */
+            color: #fff; /* Texte blanc */
+            transition: background-color 0.3s;
+            margin-top: 10px; /* Ajoute un espace entre le champ de saisie et le bouton */
+        }
 
-.button:hover {
-    background-color: #0056b3; /* Bleu plus foncé au survol */
-}
+        .button:hover {
+            background-color: #0056b3; /* Bleu plus foncé au survol */
+        }
 
-#loading {
-    display: none;
-    font-size: 1.2em;
-}
+        #loading {
+            display: none;
+            font-size: 1.2em;
+        }
 
-#gameStatus {
-    margin-top: 20px;
-    font-size: 1.2em;
-}
+        #gameStatus {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
 
-.notification {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
-    color: white;
-    padding: 15px 25px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    display: none; /* Caché par défaut */
-    transition: opacity 0.5s ease-in-out;
-}
-</style>
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            display: none; /* Caché par défaut */
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
 </head>
 <body>
 
 <!-- Page d'accueil -->
 <div class="intro">
-<button id="startButton" class="start-button">Commencer</button>
+    <button id="startButton" class="start-button">Commencer</button>
 </div>
 
 <!-- Page de connexion -->
 <section id="loginSection" class="hidden">
-<h2>Connexion</h2>
-<label for="userId">Identifiant :</label>
-<input type="text" id="userId" placeholder="Entrez votre identifiant">
-<span id="userIdError" class="error-message">Veuillez entrer un identifiant.</span>
-<button id="submitId" class="button">Soumettre</button>
+    <h2>Connexion</h2>
+    <label for="userId">Identifiant :</label>
+    <input type="text" id="userId" placeholder="Entrez votre identifiant">
+    <span id="userIdError" class="error-message">Veuillez entrer un identifiant.</span>
+    <button id="submitId" class="button">Soumettre</button>
 </section>
 
 <!-- Page d'activation -->
 <section id="activationSection" class="hidden">
-<h2>Activation</h2>
-<label for="activationKey">Clé d'activation :</label>
-<input type="text" id="activationKey" placeholder="Entrez la clé d'activation">
-<span id="activationError" class="error-message">Clé d'activation invalide.</span>
-<button id="activateButton" class="button">Activer</button>
-<button id="telegramButton" class="button">Contactez-nous sur Telegram</button>
-<p id="activationMessage" class="hidden">Activation réussie !</p>
-<button id="accessButton" class="button hidden" disabled>Accédez au jeu</button> <!-- Désactivé par défaut -->
-<button id="adminButton" class="button">Administration</button> <!-- Bouton d'administration -->
+    <h2>Activation</h2>
+    <label for="activationKey">Clé d'activation :</label>
+    <input type="text" id="activationKey" placeholder="Entrez la clé d'activation">
+    <span id="activationError" class="error-message">Clé d'activation invalide.</span>
+    <button id="activateButton" class="button">Activer</button>
+    <button id="telegramButton" class="button">Contactez-nous sur Telegram</button>
+    <p id="activationMessage" class="hidden">Activation réussie !</p>
+    <button id="accessButton" class="button hidden" disabled>Accédez au jeu</button> <!-- Désactivé par défaut -->
+    <button id="adminButton" class="button">Administration</button> <!-- Bouton d'administration -->
 </section>
 
 <!-- Page d'administration -->
 <section id="adminSection" class="hidden">
-<h2>Administration</h2>
-<label for="adminCode">Code d'accès :</label>
-<input type="text" id="adminCode" placeholder="Entrez le code d'accès">
-<span id="adminError" class="error-message">Code d'accès invalide.</span>
-<button id="submitAdminCode" class="button">Soumettre</button>
-<button id="backToActivationButton" class="button">Retour</button> <!-- Bouton retour vers l'activation -->
+    <h2>Administration</h2>
+    <label for="adminCode">Code d'accès :</label>
+    <input type="text" id="adminCode" placeholder="Entrez le code d'accès">
+    <span id="adminError" class="error-message">Code d'accès invalide.</span>
+    <button id="submitAdminCode" class="button">Soumettre</button>
+    <button id="backToActivationButton" class="button">Retour</button> <!-- Bouton retour vers l'activation -->
 </section>
 
 <!-- Page pour changer le code d'activation -->
 <section id="changeActivationSection" class="hidden">
-<h2>Changer le code d'activation</h2>
-<label for="newActivationKey">Nouveau code d'activation :</label>
-<input type="text" id="newActivationKey" placeholder="Entrez le nouveau code d'activation">
-<button id="changeActivationButton" class="button">Changer le code</button>
-<span id="changeMessage" class="hidden">Code d'activation changé avec succès !</span>
-<button id="backToAdminButton" class="button">Retour</button> <!-- Bouton retour vers l'administration -->
+    <h2>Changer le code d'activation</h2>
+    <label for="newActivationKey">Nouveau code d'activation :</label>
+    <input type="text" id="newActivationKey" placeholder="Entrez le nouveau code d'activation">
+    <button id="changeActivationButton" class="button">Changer le code</button>
+    <span id="changeMessage" class="hidden">Code d'activation changé avec succès !</span>
+    <button id="backToAdminButton" class="button">Retour</button> <!-- Bouton retour vers l'administration -->
 </section>
 
 <!-- Page du jeu -->
 <section id="gameSection" class="hidden">
-<h1>Apple of Fortune</h1><p>Révélez les cases sans toucher les bombes pour atteindre le haut !</p>
-<div class="grid" id="grid"></div>
-<button id="nextButton" class="button">Next</button>
-<div id="loading">Chargement...</div>
-<div id="gameStatus">Cliquez sur "Next" pour commencer !</div>
-<button id="backToActivationFromGameButton" class="button">Retour</button> <!-- Bouton retour vers l'activation depuis le jeu -->
+    <h1>Apple of Fortune</h1>
+    <p>Révélez les cases sans toucher les bombes pour atteindre le haut !</p>
+    <div class="grid" id="grid"></div>
+    <button id="nextButton" class="button">Next</button>
+    <div id="loading">Chargement...</div>
+    <div id="gameStatus">Cliquez sur "Next" pour commencer !</div>
+    <button id="backToActivationFromGameButton" class="button">Retour</button> <!-- Bouton retour vers l'activation depuis le jeu -->
 </section>
 
 <script>
-const gridRows = 10;
-const gridCols = 5;
-const gridSize = gridRows * gridCols;
-const bombCount = 5;
-let gameOver = false;
-let activationCode = localStorage.getItem('activationCode')  'Geek23'; // Récupérer le code d'activation depuis localStorage ou utiliser la valeur par défaut
-const adminAccessCode = '09876'; // Code d'accès administrateur
+    const gridRows = 10;
+    const gridCols = 5;
+    const gridSize = gridRows * gridCols;
+    const bombCount = 5;
+    let gameOver = false;
+    let activationCode = localStorage.getItem('activationCode') || 'Geek23'; // Récupérer le code d'activation depuis localStorage ou utiliser la valeur par défaut
+    const adminAccessCode = '09876'; // Code d'accès administrateur
 
-const grid = document.getElementById('grid');
-const loadingDiv = document.getElementById('loading');
-const gameStatus = document.getElementById('gameStatus');
-let cells = [];
+    const grid = document.getElementById('grid');
+    const loadingDiv = document.getElementById('loading');
+    const gameStatus = document.getElementById('gameStatus');
+    let cells = [];
 
-function createGrid() {
-    grid.innerHTML = ''; // Réinitialiser la grille
+    function createGrid() {
+        grid.innerHTML = ''; // Réinitialiser la grille
 
-    const indices = Array.from({length: gridSize}, (_, i) => i);
-    indices.sort(() => Math.random() - 0.5); // Mélange les indices
+        const indices = Array.from({length: gridSize}, (_, i) => i);
+        indices.sort(() => Math.random() - 0.5); // Mélange les indices
 
-    const bombIndices = indices.slice(0, bombCount);
-    const appleIndices = indices.slice(bombCount);
+        const bombIndices = indices.slice(0, bombCount);
+        const appleIndices = indices.slice(bombCount);
 
-    for (let i = 0; i < gridSize; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        cell.dataset.index = i;
+        for (let i = 0; i < gridSize; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.dataset.index = i;
 
-        if (bombIndices.includes(i)) {
-            cell.dataset.type = 'bomb';
-        } else {
-            cell.dataset.type = 'apple';
-        }
-
-        cell.addEventListener('click', function () {
-            if (gameOver  this.classList.contains('revealed')) return;
-            if (this.dataset.type === 'apple') {
-                this.classList.add('apple', 'revealed');
-                this.textContent = '🍎';
-                checkWinCondition();
-            } else if (this.dataset.type === 'bomb') {
-                this.classList.add('bomb', 'revealed');
-                this.textContent = '💣';
-                gameOver = true;
-                endGame('Vous avez touché une bombe !');
+            if (bombIndices.includes(i)) {
+                cell.dataset.type = 'bomb';
+            } else {
+                cell.dataset.type = 'apple';
             }
-        });
 
-        cells.push(cell);
-        grid.appendChild(cell);
-    }
-}
+            cell.addEventListener('click', function () {
+                if (gameOver || this.classList.contains('revealed')) return;
+                if (this.dataset.type === 'apple') {
+                    this.classList.add('apple', 'revealed');
+                    this.textContent = '🍎';
+                    checkWinCondition();
+                } else if (this.dataset.type === 'bomb') {
+                    this.classList.add('bomb', 'revealed');
+                    this.textContent = '💣';
+                    gameOver = true;
+                    endGame('Vous avez touché une bombe !');
+                }
+            });
 
-function checkWinCondition() {
-    const revealedCount = cells.filter(cell => cell.classList.contains('revealed')).length;
-    if (revealedCount >= gridSize - bombCount) {
-        gameOver = true;
-        endGame('Félicitations, vous avez gagné !');
-    }
-}
-
-function endGame(message) {
-    loadingDiv.style.display = 'none';
-    gameStatus.textContent = message;
-    document.getElementById('nextButton').style.display = 'none';
-    cells.forEach(cell => {
-        if (cell.dataset.type === 'bomb') {
-            cell.classList.add('bomb', 'revealed');
-            cell.textContent = '💣';
-        } else if (cell.dataset.type === 'apple') {
-            cell.classList.add('apple', 'revealed');
-            cell.textContent = '🍎';
+            cells.push(cell);
+            grid.appendChild(cell);
         }
-        cell.style.pointerEvents = 'none';
-    });
-}
+    }
 
-function revealGrid() {
-    loadingDiv.style.display = 'block';
-    setTimeout(() => {
+    function checkWinCondition() {
+        const revealedCount = cells.filter(cell => cell.classList.contains('revealed')).length;
+        if (revealedCount >= gridSize - bombCount) {
+            gameOver = true;
+            endGame('Félicitations, vous avez gagné !');
+        }
+    }
+
+    function endGame(message) {
+        loadingDiv.style.display = 'none';
+        gameStatus.textContent = message;
+        document.getElementById('nextButton').style.display = 'none';
         cells.forEach(cell => {
             if (cell.dataset.type === 'bomb') {
                 cell.classList.add('bomb', 'revealed');
                 cell.textContent = '💣';
-            } else {
+            } else if (cell.dataset.type === 'apple') {
                 cell.classList.add('apple', 'revealed');
                 cell.textContent = '🍎';
             }
             cell.style.pointerEvents = 'none';
         });
-        loadingDiv.style.display = 'none';
-        gameStatus.textContent = '';
-    }, 10000); // Temps de chargement en millisecondes (10 secondes ici)
-}
+    }
 
-function showNotification(message) {
-    const notification = document.createElement('div');notification.className = 'notification';
+    function revealGrid() {
+        loadingDiv.style.display = 'block';
+        setTimeout(() => {
+            cells.forEach(cell => {
+                if (cell.dataset.type === 'bomb') {
+                    cell.classList.add('bomb', 'revealed');
+                    cell.textContent = '💣';
+                } else {
+                    cell.classList.add('apple', 'revealed');
+                    cell.textContent = '🍎';
+                }
+                cell.style.pointerEvents = 'none';
+            });
+            loadingDiv.style.display = 'none';
+            gameStatus.textContent = '';
+        }, 10000); // Temps de chargement en millisecondes (10 secondes ici)
+    }
+
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
         notification.textContent = message;
         document.body.appendChild(notification);
         notification.style.display = 'block';
@@ -422,7 +425,8 @@ function showNotification(message) {
             return;
         }
         activationCode = newActivationKey;
-        localStorage.setItem('activationCode', activationCode);document.getElementById('changeMessage').classList.remove('hidden');
+        localStorage.setItem('activationCode', activationCode);
+        document.getElementById('changeMessage').classList.remove('hidden');
     });
 
     document.getElementById('backToActivationButton').addEventListener('click', function () {
@@ -497,7 +501,8 @@ function showNotification(message) {
     });
 
     document.getElementById('backToActivationButton').addEventListener('click', function () {
-        document.getElementById('activationSection').classList.remove('hidden');document.getElementById('gameSection').classList.add('hidden');
+        document.getElementById('activationSection').classList.remove('hidden');
+        document.getElementById('gameSection').classList.add('hidden');
     });
 </script>
 
